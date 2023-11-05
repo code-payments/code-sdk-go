@@ -10,27 +10,32 @@ import (
 // for a specifc amount. For fiat values, exchange rates are computed dynamically
 // at time of payment.
 type PaymentRequestIntent struct {
-	currency      CurrencyCode
-	amount        float64
-	destination   *PublicKey
-	nonce         IdempotencyKey
-	rendezvousKey *KeyPair
+	currency        CurrencyCode
+	convertedAmount float64
+	destination     *PublicKey
+	nonce           IdempotencyKey
+	rendezvousKey   *KeyPair
 }
 
 func NewPaymentRequestIntent(
 	currency CurrencyCode,
 	amount float64,
-	destination *PublicKey,
+	destination string,
 	opts ...OptionalIntentParameters,
 ) (*PaymentRequestIntent, error) {
 	optionalIntentParamters := applyOptionalIntentParameters(opts...)
 
-	amount = float64(uint64(100*amount)) / 100.0
+	convertedAmount := float64(uint64(100*amount)) / 100.0
+
+	destinationPublicKey, err := NewPublicKeyFromString(destination)
+	if err != nil {
+		return nil, err
+	}
 
 	payload, err := NewCodePayload(
 		CodePayloadPaymentRequest,
 		currency,
-		amount,
+		convertedAmount,
 		optionalIntentParamters.idempotencyKey,
 	)
 	if err != nil {
@@ -43,11 +48,11 @@ func NewPaymentRequestIntent(
 	}
 
 	return &PaymentRequestIntent{
-		currency:      currency,
-		amount:        amount,
-		destination:   destination,
-		nonce:         optionalIntentParamters.idempotencyKey,
-		rendezvousKey: rendezvousKey,
+		currency:        currency,
+		convertedAmount: convertedAmount,
+		destination:     destinationPublicKey,
+		nonce:           optionalIntentParamters.idempotencyKey,
+		rendezvousKey:   rendezvousKey,
 	}, nil
 }
 
@@ -83,15 +88,15 @@ func (p *PaymentRequestIntent) toProtoMessage() *codepb.RequestToReceiveBill {
 			Exact: &codepb.ExchangeData{
 				Currency:     string(p.currency),
 				ExchangeRate: 1.0,
-				NativeAmount: p.amount,
-				Quarks:       uint64(p.amount * QuarksPerKin),
+				NativeAmount: p.convertedAmount,
+				Quarks:       uint64(p.convertedAmount * QuarksPerKin),
 			},
 		}
 	} else {
 		msg.ExchangeData = &codepb.RequestToReceiveBill_Partial{
 			Partial: &codepb.ExchangeDataWithoutRate{
 				Currency:     string(p.currency),
-				NativeAmount: p.amount,
+				NativeAmount: p.convertedAmount,
 			},
 		}
 	}

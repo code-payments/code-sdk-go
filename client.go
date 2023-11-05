@@ -51,7 +51,9 @@ type CreatePaymentRequestResponse struct {
 
 // CreatePaymentRequest creates a payment request intent. The response object
 // can be used directly as the return value for the Code SDK on the browser.
-func (c *Client) CreatePaymentRequest(ctx context.Context, intent *PaymentRequestIntent) (*CreatePaymentRequestResponse, error) {
+func (c *Client) CreatePaymentRequest(
+	ctx context.Context, intent *PaymentRequestIntent,
+) (*CreatePaymentRequestResponse, error) {
 	protoMessage, err := proto.Marshal(intent.toProtoMessage())
 	if err != nil {
 		return nil, err

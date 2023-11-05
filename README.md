@@ -42,11 +42,10 @@ func main() {
 	client := codesdk.NewWebClient()
 
 	// Specify payment request details
-	destination, _ := codesdk.NewPublicKeyFromString("E8otxw1CVX9bfyddKu3ZB3BVLa4VVF9J7CTPdnUwT9jR")
 	intent, err := codesdk.NewPaymentRequestIntent(
 		codesdk.USD,
 		0.05,
-		destination,
+		"E8otxw1CVX9bfyddKu3ZB3BVLa4VVF9J7CTPdnUwT9jR",
 	)
 	check(err)
 

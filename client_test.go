@@ -9,6 +9,7 @@ import (
 )
 
 func TestCreatePaymentRequestIntent(t *testing.T) {
+	destination := "E8otxw1CVX9bfyddKu3ZB3BVLa4VVF9J7CTPdnUwT9jR"
 	for _, tc := range []struct {
 		currency CurrencyCode
 		amount   float64
@@ -17,9 +18,6 @@ func TestCreatePaymentRequestIntent(t *testing.T) {
 		{KIN, 10_000.00},
 	} {
 		ctx := context.Background()
-
-		destination, err := NewPublicKeyFromString("E8otxw1CVX9bfyddKu3ZB3BVLa4VVF9J7CTPdnUwT9jR")
-		require.NoError(t, err)
 
 		intent, err := NewPaymentRequestIntent(tc.currency, tc.amount, destination)
 		require.NoError(t, err)
