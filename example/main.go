@@ -39,8 +39,6 @@ func main() {
 			return
 		}
 
-		fmt.Println(resp)
-
 		marshalledJson, _ := json.Marshal(resp)
 		w.Header().Add("Content-Type", "application/json")
 		w.Write(marshalledJson)
@@ -55,8 +53,6 @@ func main() {
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
-
-		fmt.Println(resp)
 
 		marshalledJson, _ := json.Marshal(resp)
 		w.Header().Add("Content-Type", "application/json")
