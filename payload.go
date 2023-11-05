@@ -17,6 +17,7 @@ const (
 	CodePayloadPaymentRequest
 )
 
+// CodePayload is the payload format for scan codes.
 type CodePayload struct {
 	kind   CodePayloadType
 	amount amountBuffer

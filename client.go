@@ -21,11 +21,16 @@ const (
 	getStatusUrl    = apiBaseUrl + "getStatus"
 )
 
+// The state of an intent
 type IntentState uint8
 
 const (
+	// The intent doesn't exist
 	IntentStateUnknown IntentState = iota
+	// The intent exists, but the user hasn't made a payment
 	IntentStatePending
+	// The user has submitted a payment. Fulfillment on the blockchain is either
+	// in progress, or completed, by the Code sequencer.
 	IntentStateConfirmed
 )
 
@@ -44,6 +49,8 @@ type CreatePaymentRequestResponse struct {
 	ClientSecret string `json:"clientSecret"`
 }
 
+// CreatePaymentRequest creates a payment request intent. The response object
+// can be used directly as the return value for the Code SDK on the browser.
 func (c *Client) CreatePaymentRequest(ctx context.Context, intent *PaymentRequestIntent) (*CreatePaymentRequestResponse, error) {
 	protoMessage, err := proto.Marshal(intent.toProtoMessage())
 	if err != nil {
@@ -82,6 +89,7 @@ func (c *Client) CreatePaymentRequest(ctx context.Context, intent *PaymentReques
 	}, nil
 }
 
+// GetIntentStatus returns the state of the intent
 func (c *Client) GetIntentStatus(ctx context.Context, intentId string) (IntentState, error) {
 	url := fmt.Sprintf("%s?intent=%s", getStatusUrl, intentId)
 	req, err := http.NewRequest(http.MethodGet, url, nil)

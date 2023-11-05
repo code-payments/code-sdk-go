@@ -6,6 +6,9 @@ import (
 	codepb "github.com/code-wallet/code-sdk-go/genproto"
 )
 
+// PaymentRequestIntent is an intent to request a payment be made to a destination
+// for a specifc amount. For fiat values, exchange rates are computed dynamically
+// at time of payment.
 type PaymentRequestIntent struct {
 	currency      CurrencyCode
 	amount        float64
@@ -48,16 +51,24 @@ func NewPaymentRequestIntent(
 	}, nil
 }
 
+// GetIntentId is the unique ID for the intent. It is the public key of the
+// rendezvous key pair.
 func (p *PaymentRequestIntent) GetIntentId() string {
 	return p.rendezvousKey.GetPublicKey().ToBase58()
 }
 
-func (p *PaymentRequestIntent) GetClientSecret() string {
-	return p.nonce.String()
-}
-
+// GetRendezvousKey returns a unique key pair for the scan code payload for
+// the intent, which is used during the scanning process to establish a secure
+// communication channel anonymously to coordinate a flow.
 func (p *PaymentRequestIntent) GetRendezvousKey() *KeyPair {
 	return p.rendezvousKey
+}
+
+// GetClientSecret returns a secret value required by the Code SDK at the
+// browser to reconstruct the intent. Your server should never share this
+// value until the intent is successfully created against Code server.
+func (p *PaymentRequestIntent) GetClientSecret() string {
+	return p.nonce.String()
 }
 
 func (p *PaymentRequestIntent) toProtoMessage() *codepb.RequestToReceiveBill {

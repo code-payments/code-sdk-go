@@ -8,6 +8,9 @@ import (
 	"github.com/mr-tron/base58"
 )
 
+// Idempotency key is a globally unique value for guaranteeing an action is
+// executed once. Along with other payment details, it is used to derive a
+// consistent rendezvous key and intent ID.
 type IdempotencyKey [codePayloadNonceSize]byte
 
 func GenerateIdempotencyKey() IdempotencyKey {
