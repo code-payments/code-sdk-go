@@ -120,6 +120,8 @@ func (c *Client) GetIntentStatus(ctx context.Context, intentId string) (*GetInte
 		state = IntentStateConfirmed
 	case "pending":
 		state = IntentStatePending
+	default:
+		state = IntentStateUnknown
 	}
 	return &GetIntentStateResponse{
 		Status: state,
