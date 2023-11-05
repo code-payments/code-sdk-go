@@ -21,9 +21,9 @@ func NewPaymentRequestIntent(
 	currency CurrencyCode,
 	amount float64,
 	destination string,
-	opts ...OptionalIntentParameters,
+	opts ...IntentOption,
 ) (*PaymentRequestIntent, error) {
-	optionalIntentParamters := applyOptionalIntentParameters(opts...)
+	optionalParameters := applyIntentOptions(opts...)
 
 	convertedAmount := float64(uint64(100*amount)) / 100.0
 
@@ -36,7 +36,7 @@ func NewPaymentRequestIntent(
 		CodePayloadPaymentRequest,
 		currency,
 		convertedAmount,
-		optionalIntentParamters.idempotencyKey,
+		optionalParameters.idempotencyKey,
 	)
 	if err != nil {
 		return nil, err
@@ -51,7 +51,7 @@ func NewPaymentRequestIntent(
 		currency:        currency,
 		convertedAmount: convertedAmount,
 		destination:     destinationPublicKey,
-		nonce:           optionalIntentParamters.idempotencyKey,
+		nonce:           optionalParameters.idempotencyKey,
 		rendezvousKey:   rendezvousKey,
 	}, nil
 }
@@ -119,20 +119,20 @@ func (p *PaymentRequestIntent) sign() ([]byte, error) {
 	return p.rendezvousKey.Sign(marshalled), nil
 }
 
-type optionalIntentParamters struct {
-	idempotencyKey IdempotencyKey
-}
+type IntentOption func(*optionalIntentParameters)
 
-type OptionalIntentParameters func(*optionalIntentParamters)
-
-func WithIdempotencyKey(idempotencyKey IdempotencyKey) OptionalIntentParameters {
-	return func(opts *optionalIntentParamters) {
+func WithIdempotencyKey(idempotencyKey IdempotencyKey) IntentOption {
+	return func(opts *optionalIntentParameters) {
 		opts.idempotencyKey = idempotencyKey
 	}
 }
 
-func applyOptionalIntentParameters(opts ...OptionalIntentParameters) *optionalIntentParamters {
-	res := &optionalIntentParamters{
+type optionalIntentParameters struct {
+	idempotencyKey IdempotencyKey
+}
+
+func applyIntentOptions(opts ...IntentOption) *optionalIntentParameters {
+	res := &optionalIntentParameters{
 		idempotencyKey: GenerateIdempotencyKey(),
 	}
 	for _, opt := range opts {

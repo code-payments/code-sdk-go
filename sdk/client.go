@@ -51,7 +51,13 @@ type CreatePaymentRequestResponse struct {
 
 // CreatePaymentRequest creates a payment request intent. The response object
 // can be used directly as the return value for the Code SDK on the browser.
-func (c *Client) CreatePaymentRequest(ctx context.Context, intent *PaymentRequestIntent) (*CreatePaymentRequestResponse, error) {
+func (c *Client) CreatePaymentRequest(
+	ctx context.Context,
+	intent *PaymentRequestIntent,
+	opts ...PaymentRequestOption,
+) (*CreatePaymentRequestResponse, error) {
+	optionalParameters := applyPaymentRequestOptions(opts...)
+
 	protoMessage, err := proto.Marshal(intent.toProtoMessage())
 	if err != nil {
 		return nil, err
@@ -67,7 +73,7 @@ func (c *Client) CreatePaymentRequest(ctx context.Context, intent *PaymentReques
 		"intent":    intent.GetIntentId(),
 		"message":   base64.RawURLEncoding.EncodeToString(protoMessage),
 		"signature": base58.Encode(signature),
-		"webhook":   nil, // todo: support webhook
+		"webhook":   optionalParameters.webhookUrl,
 	})
 	if err != nil {
 		return nil, err
@@ -87,6 +93,26 @@ func (c *Client) CreatePaymentRequest(ctx context.Context, intent *PaymentReques
 		IntentId:     intent.GetIntentId(),
 		ClientSecret: intent.GetClientSecret(),
 	}, nil
+}
+
+type PaymentRequestOption func(*optionalPaymentRequestParameters)
+
+func WithWebhookUrl(webhookUrl string) PaymentRequestOption {
+	return func(opts *optionalPaymentRequestParameters) {
+		opts.webhookUrl = &webhookUrl
+	}
+}
+
+type optionalPaymentRequestParameters struct {
+	webhookUrl *string
+}
+
+func applyPaymentRequestOptions(opts ...PaymentRequestOption) *optionalPaymentRequestParameters {
+	res := &optionalPaymentRequestParameters{}
+	for _, opt := range opts {
+		opt(res)
+	}
+	return res
 }
 
 type GetIntentStateResponse struct {
