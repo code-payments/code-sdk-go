@@ -43,8 +43,11 @@ func main() {
 
 	// Specify payment request details
 	intent, err := codesdk.NewPaymentRequestIntent(
+		// Or the string "usd"
 		codesdk.USD,
+		// Minimum amount is $0.05 USD
 		0.05,
+		// Code Deposit Address or any Kin token account
 		"E8otxw1CVX9bfyddKu3ZB3BVLa4VVF9J7CTPdnUwT9jR",
 	)
 	check(err)
