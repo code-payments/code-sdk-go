@@ -26,7 +26,7 @@ import (
 	"context"
 	"log"
 
-	codesdk "github.com/code-wallet/code-sdk-go"
+	codesdk "github.com/code-wallet/code-sdk-go/sdk"
 )
 
 func check(err error) {
