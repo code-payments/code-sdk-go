@@ -1,3 +1,6 @@
+[![Release](https://img.shields.io/github/v/release/code-wallet/code-sdk-go.svg)](https://github.com/code-wallet/code-sdk-go/releases/latest)
+[![Tests](https://github.com/code-wallet/code-sdk-go/actions/workflows/test.yml/badge.svg)](https://github.com/code-wallet/code-sdk-go/actions/workflows/test.yml)
+
 # Code Wallet Golang SDK
 
 The Code Wallet Golang SDK is a module that allows Go developers to integrate Code into their applications. Seamlessly start accepting payments with minimal setup and just a few lines of code.
