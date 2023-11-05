@@ -16,22 +16,22 @@ import (
 )
 
 const (
-	apiBaseUrl      = "https://api.getcode.com/v1/"
-	createIntentUrl = apiBaseUrl + "createIntent"
-	getStatusUrl    = apiBaseUrl + "getStatus"
+	v1ApiBaseUrl    = "https://api.getcode.com/v1/"
+	createIntentUrl = v1ApiBaseUrl + "createIntent"
+	getStatusUrl    = v1ApiBaseUrl + "getStatus"
 )
 
 // The state of an intent
-type IntentState uint8
+type IntentState string
 
 const (
 	// The intent doesn't exist
-	IntentStateUnknown IntentState = iota
-	// The intent exists, but the user hasn't made a payment
-	IntentStatePending
+	IntentStateUnknown IntentState = "unknown"
+	// The intent exists, but the user hasn't submitted a payment
+	IntentStatePending IntentState = "pending"
 	// The user has submitted a payment. Fulfillment on the blockchain is either
 	// in progress, or completed, by the Code sequencer.
-	IntentStateConfirmed
+	IntentStateConfirmed IntentState = "confirmed"
 )
 
 type Client struct {
@@ -51,9 +51,7 @@ type CreatePaymentRequestResponse struct {
 
 // CreatePaymentRequest creates a payment request intent. The response object
 // can be used directly as the return value for the Code SDK on the browser.
-func (c *Client) CreatePaymentRequest(
-	ctx context.Context, intent *PaymentRequestIntent,
-) (*CreatePaymentRequestResponse, error) {
+func (c *Client) CreatePaymentRequest(ctx context.Context, intent *PaymentRequestIntent) (*CreatePaymentRequestResponse, error) {
 	protoMessage, err := proto.Marshal(intent.toProtoMessage())
 	if err != nil {
 		return nil, err
@@ -91,17 +89,21 @@ func (c *Client) CreatePaymentRequest(
 	}, nil
 }
 
+type GetIntentStateResponse struct {
+	Status IntentState `json:"status"`
+}
+
 // GetIntentStatus returns the state of the intent
-func (c *Client) GetIntentStatus(ctx context.Context, intentId string) (IntentState, error) {
+func (c *Client) GetIntentStatus(ctx context.Context, intentId string) (*GetIntentStateResponse, error) {
 	url := fmt.Sprintf("%s?intent=%s", getStatusUrl, intentId)
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
-		return IntentStateUnknown, nil
+		return nil, nil
 	}
 
 	body, err := c.do(ctx, req)
 	if err != nil {
-		return IntentStateUnknown, err
+		return nil, err
 	}
 
 	jsonRespBody := struct {
@@ -109,16 +111,19 @@ func (c *Client) GetIntentStatus(ctx context.Context, intentId string) (IntentSt
 	}{}
 	err = json.Unmarshal(body, &jsonRespBody)
 	if err != nil {
-		return IntentStateUnknown, err
+		return nil, err
 	}
 
+	var state IntentState
 	switch strings.ToLower(jsonRespBody.Status) {
 	case "submitted":
-		return IntentStateConfirmed, nil
+		state = IntentStateConfirmed
 	case "pending":
-		return IntentStatePending, nil
+		state = IntentStatePending
 	}
-	return IntentStateUnknown, nil
+	return &GetIntentStateResponse{
+		Status: state,
+	}, nil
 }
 
 func (c *Client) do(ctx context.Context, req *http.Request) ([]byte, error) {

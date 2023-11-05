@@ -48,6 +48,6 @@ func TestGetIntentStatus(t *testing.T) {
 	} {
 		actual, err := client.GetIntentStatus(ctx, tc.intentId)
 		require.NoError(t, err)
-		assert.Equal(t, tc.expected, actual)
+		assert.Equal(t, tc.expected, actual.Status)
 	}
 }
