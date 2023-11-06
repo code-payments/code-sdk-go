@@ -1,5 +1,5 @@
-github.com/code-wallet/code-sdk-go v0.0.0-20231106025331-b5cfed453438 h1:WS+6K0yi9msbpaHErk5GQQcD+s3pnk5xbdBrLgTrM7k=
-github.com/code-wallet/code-sdk-go v0.0.0-20231106025331-b5cfed453438/go.mod h1:jmoHqCrx8r40dN8UlH6/Jngvb/MFjjMZk/PJnOITXoU=
+github.com/code-wallet/code-sdk-go v1.0.0 h1:9imzo19Imd5D87xv3LPaxbHmXCSA6jBWUye7uI70XJI=
+github.com/code-wallet/code-sdk-go v1.0.0/go.mod h1:jmoHqCrx8r40dN8UlH6/Jngvb/MFjjMZk/PJnOITXoU=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/golang/protobuf v1.5.0/go.mod h1:FsONVRAS9T7sI+LIUmWTfcYkHO4aIWwzhcaSAoJOfIk=
