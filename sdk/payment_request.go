@@ -1,6 +1,8 @@
 package codesdk
 
 import (
+	"math"
+
 	"google.golang.org/protobuf/proto"
 
 	codepb "github.com/code-wallet/code-sdk-go/genproto"
@@ -25,7 +27,7 @@ func NewPaymentRequestIntent(
 ) (*PaymentRequestIntent, error) {
 	optionalParameters := applyIntentOptions(opts...)
 
-	convertedAmount := float64(uint64(100*amount)) / 100.0
+	convertedAmount := math.Round(100.0*amount) / 100.0
 
 	destinationPublicKey, err := NewPublicKeyFromString(destination)
 	if err != nil {

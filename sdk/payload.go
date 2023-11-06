@@ -1,6 +1,8 @@
 package codesdk
 
-import "errors"
+import (
+	"errors"
+)
 
 const (
 	codePayloadTypeSize   = 1
@@ -84,7 +86,7 @@ func (b *currencyAmountBuffer) toBytes() [codePayloadAmountSize]byte {
 	currencyIndex, _ := b.currency.toIndex()
 	buffer[0] = byte(currencyIndex)
 
-	amountToSerialize := uint64(b.amount * 100)
+	amountToSerialize := uint64(100.0 * b.amount)
 	for i := 1; i < codePayloadAmountSize; i++ {
 		buffer[i] = byte(amountToSerialize >> uint64(8*(i-1)) & uint64(0xFF))
 	}
