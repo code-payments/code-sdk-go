@@ -1,4 +1,5 @@
 [![Release](https://img.shields.io/github/v/release/code-wallet/code-sdk-go.svg)](https://github.com/code-wallet/code-sdk-go/releases/latest)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/code-wallet/code-sdk-go)](https://pkg.go.dev/github.com/code-wallet/code-sdk-go)
 [![Tests](https://github.com/code-wallet/code-sdk-go/actions/workflows/test.yml/badge.svg)](https://github.com/code-wallet/code-sdk-go/actions/workflows/test.yml)
 
 # Code Wallet Golang SDK
