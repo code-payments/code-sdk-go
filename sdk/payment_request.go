@@ -5,7 +5,9 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
-	codepb "github.com/code-wallet/code-sdk-go/genproto"
+	commonpb "github.com/code-wallet/code-protobuf-api/generated/go/common/v1"
+	messagingpb "github.com/code-wallet/code-protobuf-api/generated/go/messaging/v1"
+	transactionpb "github.com/code-wallet/code-protobuf-api/generated/go/transaction/v2"
 )
 
 // PaymentRequestIntent is an intent to request a payment be made to a destination
@@ -78,16 +80,16 @@ func (p *PaymentRequestIntent) GetClientSecret() string {
 	return p.nonce.String()
 }
 
-func (p *PaymentRequestIntent) toProtoMessage() *codepb.RequestToReceiveBill {
-	msg := &codepb.RequestToReceiveBill{
-		RequestorAccount: &codepb.SolanaAccountId{
+func (p *PaymentRequestIntent) toProtoMessage() *messagingpb.RequestToReceiveBill {
+	msg := &messagingpb.RequestToReceiveBill{
+		RequestorAccount: &commonpb.SolanaAccountId{
 			Value: p.destination.ToBytes(),
 		},
 	}
 
 	if p.currency == KIN {
-		msg.ExchangeData = &codepb.RequestToReceiveBill_Exact{
-			Exact: &codepb.ExchangeData{
+		msg.ExchangeData = &messagingpb.RequestToReceiveBill_Exact{
+			Exact: &transactionpb.ExchangeData{
 				Currency:     string(p.currency),
 				ExchangeRate: 1.0,
 				NativeAmount: p.convertedAmount,
@@ -95,8 +97,8 @@ func (p *PaymentRequestIntent) toProtoMessage() *codepb.RequestToReceiveBill {
 			},
 		}
 	} else {
-		msg.ExchangeData = &codepb.RequestToReceiveBill_Partial{
-			Partial: &codepb.ExchangeDataWithoutRate{
+		msg.ExchangeData = &messagingpb.RequestToReceiveBill_Partial{
+			Partial: &transactionpb.ExchangeDataWithoutRate{
 				Currency:     string(p.currency),
 				NativeAmount: p.convertedAmount,
 			},
@@ -107,8 +109,8 @@ func (p *PaymentRequestIntent) toProtoMessage() *codepb.RequestToReceiveBill {
 }
 
 func (p *PaymentRequestIntent) sign() ([]byte, error) {
-	envelope := &codepb.Envelope{
-		Kind: &codepb.Envelope_RequestToReceiveBill{
+	envelope := &messagingpb.Message{
+		Kind: &messagingpb.Message_RequestToReceiveBill{
 			RequestToReceiveBill: p.toProtoMessage(),
 		},
 	}
