@@ -2,9 +2,9 @@
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/code-wallet/code-sdk-go)](https://pkg.go.dev/github.com/code-wallet/code-sdk-go/sdk)
 [![Tests](https://github.com/code-wallet/code-sdk-go/actions/workflows/test.yml/badge.svg)](https://github.com/code-wallet/code-sdk-go/actions/workflows/test.yml)
 
-# Code Wallet Golang SDK
+# Code Golang SDK
 
-The Code Wallet Golang SDK is a module that allows Go developers to integrate Code into their applications. Seamlessly start accepting payments with minimal setup and just a few lines of code.
+The Code Golang SDK is a module that allows Go developers to integrate Code into their applications. Seamlessly start accepting payments with minimal setup and just a few lines of code.
 
 See the [documentation](https://code-wallet.github.io/code-sdk/docs/guide/introduction.html) for more details.
 
@@ -14,7 +14,7 @@ See the [documentation](https://code-wallet.github.io/code-sdk/docs/guide/introd
 
 ## Installation
 
-You can install the Code Wallet Golang SDK using to Go toolset:
+You can install the Code Golang SDK using to Go toolset:
 
 ```bash
 go get github.com/code-wallet/code-sdk-go
