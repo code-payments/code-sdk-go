@@ -1,3 +1,5 @@
+![Code Golang SDK](https://repository-images.githubusercontent.com/714496320/d9fde93e-cefa-4276-8542-34befdeaa983)
+
 [![Release](https://img.shields.io/github/v/release/code-wallet/code-sdk-go.svg)](https://github.com/code-wallet/code-sdk-go/releases/latest)
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/code-wallet/code-sdk-go)](https://pkg.go.dev/github.com/code-wallet/code-sdk-go/sdk)
 [![Tests](https://github.com/code-wallet/code-sdk-go/actions/workflows/test.yml/badge.svg)](https://github.com/code-wallet/code-sdk-go/actions/workflows/test.yml)
