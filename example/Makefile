@@ -1,5 +1,5 @@
 APP_NAME = code-sdk-go-example
-APP_VERSION = 1.0
+APP_VERSION = 1.1.0
 DOCKER_IMAGE = $(APP_NAME):$(APP_VERSION)
 
 # Build the Go application directly
