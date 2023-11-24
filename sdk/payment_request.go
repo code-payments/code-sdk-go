@@ -5,9 +5,9 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
-	commonpb "github.com/code-wallet/code-protobuf-api/generated/go/common/v1"
-	messagingpb "github.com/code-wallet/code-protobuf-api/generated/go/messaging/v1"
-	transactionpb "github.com/code-wallet/code-protobuf-api/generated/go/transaction/v2"
+	commonpb "github.com/code-payments/code-protobuf-api/generated/go/common/v1"
+	messagingpb "github.com/code-payments/code-protobuf-api/generated/go/messaging/v1"
+	transactionpb "github.com/code-payments/code-protobuf-api/generated/go/transaction/v2"
 )
 
 // PaymentRequestIntent is an intent to request a payment be made to a destination
