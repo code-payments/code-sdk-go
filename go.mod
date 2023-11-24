@@ -1,9 +1,9 @@
-module github.com/code-wallet/code-sdk-go
+module github.com/code-payments/code-sdk-go
 
 go 1.21.3
 
 require (
-	github.com/code-wallet/code-protobuf-api v1.0.0
+	github.com/code-payments/code-protobuf-api v1.1.0
 	github.com/mr-tron/base58 v1.2.0
 	github.com/stretchr/testify v1.8.4
 	google.golang.org/protobuf v1.28.1

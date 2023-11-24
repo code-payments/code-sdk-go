@@ -1,15 +1,15 @@
 ![Code Golang SDK](https://repository-images.githubusercontent.com/714496320/d9fde93e-cefa-4276-8542-34befdeaa983)
 
-[![Release](https://img.shields.io/github/v/release/code-wallet/code-sdk-go.svg)](https://github.com/code-wallet/code-sdk-go/releases/latest)
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/code-wallet/code-sdk-go)](https://pkg.go.dev/github.com/code-wallet/code-sdk-go/sdk)
-[![Tests](https://github.com/code-wallet/code-sdk-go/actions/workflows/test.yml/badge.svg)](https://github.com/code-wallet/code-sdk-go/actions/workflows/test.yml)
-[![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](https://github.com/code-wallet/code-sdk-go/blob/main/LICENSE.md)
+[![Release](https://img.shields.io/github/v/release/code-payments/code-sdk-go.svg)](https://github.com/code-payments/code-sdk-go/releases/latest)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/code-payments/code-sdk-go)](https://pkg.go.dev/github.com/code-payments/code-sdk-go/sdk)
+[![Tests](https://github.com/code-payments/code-sdk-go/actions/workflows/test.yml/badge.svg)](https://github.com/code-payments/code-sdk-go/actions/workflows/test.yml)
+[![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](https://github.com/code-payments/code-sdk-go/blob/main/LICENSE.md)
 
 # Code Golang SDK
 
 The Code Golang SDK is a module that allows Go developers to integrate Code into their applications. Seamlessly start accepting payments with minimal setup and just a few lines of code.
 
-See the [documentation](https://code-wallet.github.io/code-sdk/docs/guide/introduction.html) for more details.
+See the [documentation](https://code-payments.github.io/code-sdk/docs/guide/introduction.html) for more details.
 
 ## What is Code?
 
@@ -20,7 +20,7 @@ See the [documentation](https://code-wallet.github.io/code-sdk/docs/guide/introd
 You can install the Code Golang SDK using to Go toolset:
 
 ```bash
-go get github.com/code-wallet/code-sdk-go
+go get github.com/code-payments/code-sdk-go
 ```
 
 ## Usage
@@ -33,7 +33,7 @@ import (
 	"context"
 	"log"
 
-	codesdk "github.com/code-wallet/code-sdk-go/sdk"
+	codesdk "github.com/code-payments/code-sdk-go/sdk"
 )
 
 func check(err error) {

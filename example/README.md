@@ -1,5 +1,5 @@
-# Code Wallet Golang SDK
-This example demonstrates how to use the Code Wallet Golang SDK in a simple web application.
+# Code Golang SDK
+This example demonstrates how to use the Code Golang SDK in a simple web application.
 
 ## Prerequisites
 

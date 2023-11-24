@@ -2,10 +2,10 @@ module example
 
 go 1.21.3
 
-require github.com/code-wallet/code-sdk-go v1.0.1
+require github.com/code-payments/code-sdk-go v1.0.1
 
 require (
-	github.com/code-wallet/code-protobuf-api v1.0.0 // indirect
+	github.com/code-payments/code-protobuf-api v1.0.0 // indirect
 	github.com/envoyproxy/protoc-gen-validate v0.1.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/mr-tron/base58 v1.2.0 // indirect

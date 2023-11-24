@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	codesdk "github.com/code-wallet/code-sdk-go/sdk"
+	codesdk "github.com/code-payments/code-sdk-go/sdk"
 )
 
 func main() {
