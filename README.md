@@ -5,7 +5,7 @@
 [![Tests](https://github.com/code-payments/code-sdk-go/actions/workflows/test.yml/badge.svg)](https://github.com/code-payments/code-sdk-go/actions/workflows/test.yml)
 [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](https://github.com/code-payments/code-sdk-go/blob/main/LICENSE.md)
 
-# Code Golang SDK
+# Code SDK - Go
 
 The Code Golang SDK is a module that allows Go developers to integrate Code into their applications. Seamlessly start accepting payments with minimal setup and just a few lines of code.
 
