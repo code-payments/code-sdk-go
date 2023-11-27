@@ -1,4 +1,4 @@
-![Code Golang SDK](https://repository-images.githubusercontent.com/714496320/d9fde93e-cefa-4276-8542-34befdeaa983)
+<img width="1280" alt="Code SDK - Go" src="https://github.com/code-payments/code-sdk-go/assets/5760385/873d5348-450c-4a84-846a-9b3a6cc2cb35">
 
 # Code SDK - Go
 
