@@ -1,4 +1,4 @@
-# Code Golang SDK
+# Code SDK - Go Example
 This example demonstrates how to use the Code Golang SDK in a simple web application.
 
 ## Prerequisites
